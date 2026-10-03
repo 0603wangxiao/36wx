@@ -140,12 +140,13 @@ section{
 .sec-no span{font-family:var(--font-mono);font-size:var(--fs-meta);letter-spacing:.26em;color:rgb(var(--ink-rgb)/.4)}
 h1,h2{
   font-family:var(--font-mono);font-weight:400;margin:0;
-  font-size:var(--fs-title);line-height:1.16;letter-spacing:-.01em;white-space:nowrap;
+  font-size:var(--fs-title);line-height:1.16;letter-spacing:-.01em;white-space:nowrap;text-wrap:balance;
   transition:opacity .9s var(--ease-cubic) .06s,transform .9s var(--ease-cubic) .06s}
 h2{font-size:var(--fs-title)}
 .sec-body{
   margin:var(--space-md) 0 0;max-width:46ch;
   font-size:var(--fs-body);line-height:var(--lh-body);
+  text-wrap:pretty;line-break:strict;
   color:rgb(var(--ink-rgb)/.62);
   transition:opacity .9s var(--ease-cubic) .16s,transform .9s var(--ease-cubic) .16s}
 .sec-body strong{font:inherit;font-weight:500;color:rgb(var(--ink-rgb)/.96)}
@@ -178,7 +179,7 @@ h2{font-size:var(--fs-title)}
   font-family:var(--font-mono);font-size:var(--fs-verse);
   line-height:2.1;letter-spacing:.09em;color:rgb(var(--ink-rgb)/.86);
   transition:opacity .9s var(--ease-cubic) .32s,transform .9s var(--ease-cubic) .32s}
-.verse span{display:block}
+.verse span{display:block;text-wrap:balance}
 .verse span:last-child{margin-top:.5em;color:var(--accent)}
 
 /* 三个应用 */
@@ -193,9 +194,9 @@ h2{font-size:var(--fs-title)}
   transition:padding-left var(--t-state) var(--ease-quart)}
 .app .idx{font-family:var(--font-mono);font-size:var(--fs-idx);letter-spacing:.2em;color:var(--accent)}
 .app h3{font-family:var(--font-mono);font-weight:400;margin:0;
-  font-size:var(--fs-sub);letter-spacing:-.005em;transition:color var(--t-hover) var(--ease-quart)}
+  font-size:var(--fs-sub);letter-spacing:-.005em;text-wrap:balance;transition:color var(--t-hover) var(--ease-quart)}
 .app p{margin:.7em 0 0;font-size:var(--fs-body);color:rgb(var(--ink-rgb)/.55);
-  line-height:var(--lh-body);max-width:44ch}
+  line-height:var(--lh-body);max-width:44ch;text-wrap:pretty;line-break:strict}
 .app p strong{color:rgb(var(--ink-rgb)/.8);font-weight:500}
 .app .go{font-family:var(--font-mono);font-size:var(--fs-meta);letter-spacing:.2em;
   color:rgb(var(--ink-rgb)/.34);white-space:nowrap;transition:color var(--t-hover) var(--ease-quart)}
@@ -231,6 +232,15 @@ h2{font-size:var(--fs-title)}
 .foot a:hover{color:var(--color-white)}
 .foot a:hover::after{right:0}
 .sep{width:1px;height:14px;background:rgb(var(--ink-rgb)/.14);flex:none}
+
+/* 窄屏取消正文里的硬换行：硬 <br> 把段落切成固定行，浏览器无法优化断行，
+   容易出现末行只剩一两个字。放开后交给 text-wrap:pretty 处理。 */
+@media(max-width:1079px){
+  .sec-body br{display:none}
+  /* 窄屏列宽小、段落行数多，pretty 对长段落的调整能力有限（实测 c1 仍留
+     3 字孤行）。改用 balance 把各行宽度拉平，从根上消除孤字。 */
+  .sec-body,.app p{text-wrap:balance}
+}
 
 /* 章节轨占据右侧，正文需让出这段宽度（否则规格表右对齐的数值会被轨道压住） */
 @media(min-width:980px){
