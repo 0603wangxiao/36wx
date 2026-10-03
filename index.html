@@ -138,8 +138,10 @@ h2{font-size:clamp(26px,3vw,46px)}
   font-size:clamp(14.5px,1.05vw,17px);line-height:1.85;
   color:rgb(var(--ink-rgb)/.62);
   transition:opacity .9s var(--ease-cubic) .16s,transform .9s var(--ease-cubic) .16s}
-.sec-body strong{color:rgb(var(--ink-rgb)/.94);font-weight:500}
-.sec-body em{font-style:normal;font-family:var(--font-mono);font-size:.92em;color:var(--accent)}
+.sec-body strong{font:inherit;font-weight:500;color:rgb(var(--ink-rgb)/.96)}
+.sec-body em{font-style:normal;color:var(--accent)}   /* 只靠颜色区分，不改字体与字号 */
+.sec-lede span{display:block}
+.sec-lede span+span{margin-top:.42em}
 /* 无 JS 时内容默认可见（避免 JS 失败导致整页空白）；
    有 JS 时才做入场动画 —— 由 <html class="js"> 触发 */
 .js .sec-no,.js h1,.js h2,.js .sec-body,.js .spec,.js .verse,.js .apps{opacity:0;transform:translateY(14px)}
@@ -299,10 +301,10 @@ h2{font-size:clamp(26px,3vw,46px)}
     <div class="lead">
       <div class="sec-no"><b>00</b><span>ORIGIN</span></div>
       <h1>《三变·六反》</h1>
-      <p class="sec-body">
-        一套自创的分析框架。<strong>三变讲章法</strong>——三层递进之变；
-        <strong>六反讲操作</strong>——六个与本能相反的动作。
-        框架不预测结果，它规定的是<em>看待与应对的顺序</em>。
+      <p class="sec-body sec-lede">
+        <span>一套自创的分析框架。<strong>三变讲章法</strong>——三层递进之变。</span>
+        <span><strong>六反讲操作</strong>——六个与本能相反的动作。</span>
+        <span>框架不预测结果，它规定的是<em>看待与应对的顺序</em>。</span>
       </p>
       <div class="verse" aria-label="偈文">
         <span>露启新舸，刃敛于空；</span>
