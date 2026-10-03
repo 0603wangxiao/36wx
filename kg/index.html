@@ -1508,10 +1508,10 @@ body { transition: background-color var(--dur-slow) var(--ease-soft), color var(
 /* ===== 页脚署名 · 王潇 ===== */
 .credit-line{position:fixed;left:50%;transform:translateX(-50%);bottom:74px;z-index:9;
   font-size:10px;letter-spacing:2px;color:var(--ink-faint);opacity:.8;font-weight:300;
-  pointer-events:none;white-space:nowrap;user-select:none}
+  pointer-events:none;white-space:nowrap;user-select:none}.credit-line .cl-hub{pointer-events:auto;color:inherit;text-decoration:none;border-bottom:1px solid rgba(131,124,106,.45);padding-bottom:1px;transition:color .25s ease,border-color .25s ease}.credit-line .cl-hub:hover{color:var(--ink);border-bottom-color:currentColor}.credit-line .cl-dot{margin:0 .55em;opacity:.5}
 @media (max-width:900px){.credit-line{bottom:112px;font-size:9px;letter-spacing:1.5px;opacity:.7}}
 </style>
-<div class="credit-line" id="creditLine">© 2026 王潇 · 自由使用，请注明来处；禁止商用</div>
+<div class="credit-line" id="creditLine"><a class="cl-hub" href="https://0603wangxiao.github.io/36wx/">《三变·六反》框架总览 ↗</a><span class="cl-dot">·</span>© 2026 王潇 · 自由使用，请注明来处；禁止商用</div>
 </main>
 
 <!-- 弹窗遮罩层（音乐模态 / 移动端抽屉共用） -->
@@ -2650,16 +2650,5 @@ document.addEventListener("DOMContentLoaded", main);
 <div aria-hidden="true" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;font-size:0;color:transparent;user-select:none;pointer-events:none">
   原创：王潇 2026 · https://36wx.netlify.app/ · 指纹 WX-36P-C-0913
 </div>
-<style>
-/* 框架总览入口 · 由主站统一添加（不依赖各站原有样式与结构） */
-#hubLink{position:fixed;left:14px;bottom:14px;z-index:2147483000;
-  font:400 11px/1 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-  letter-spacing:.08em;color:rgba(255,255,255,.40);text-decoration:none;
-  border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:2px;
-  transition:color .3s ease,border-color .3s ease;white-space:nowrap}
-#hubLink:hover{color:rgba(255,255,255,.88);border-color:rgba(255,255,255,.55)}
-@media(max-width:700px){#hubLink{font-size:10px;left:12px;bottom:12px}}
-</style>
-<a id="hubLink" href="https://0603wangxiao.github.io/36wx/" target="_blank" rel="noopener">《三变·六反》框架总览 ↗</a>
 </body>
 </html>
