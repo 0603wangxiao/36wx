@@ -35,6 +35,16 @@
   --space-sm:clamp(40px,4vw,64px);
   --space-md:clamp(56px,5vw,80px);
   --container:1800px;
+
+  /* ── 字号阶梯：每一级只有一个字号，全站复用 ── */
+  --fs-title:clamp(28px,3.2vw,48px);   /* 分节标题 */
+  --fs-sub:  clamp(17px,1.9vw,26px);   /* 子标题（应用名）*/
+  --fs-verse:clamp(16px,1.26vw,18px);  /* 偈文 */
+  --fs-body: clamp(14px,.95vw,16px);   /* 正文（含应用说明）*/
+  --fs-val:  clamp(13px,.86vw,14px);   /* 规格值 */
+  --fs-idx:  clamp(11px,.9vw,13px);    /* 序号 */
+  --fs-meta: clamp(10px,.82vw,11.5px); /* 标签与元信息 */
+  --lh-body: 1.82;                     /* 正文行高统一 */
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;overflow-x:clip;scrollbar-width:thin;
@@ -126,16 +136,16 @@ section{
 .sec-no{
   display:flex;align-items:baseline;gap:12px;margin-bottom:var(--space-sm);
   transition:opacity .8s var(--ease-cubic),transform .8s var(--ease-cubic)}
-.sec-no b{font-family:var(--font-mono);font-size:clamp(11px,1vw,13px);font-weight:400;letter-spacing:.3em;color:var(--accent)}
-.sec-no span{font-family:var(--font-mono);font-size:10px;letter-spacing:.26em;color:rgb(var(--ink-rgb)/.4)}
+.sec-no b{font-family:var(--font-mono);font-size:var(--fs-idx);font-weight:400;letter-spacing:.3em;color:var(--accent)}
+.sec-no span{font-family:var(--font-mono);font-size:var(--fs-meta);letter-spacing:.26em;color:rgb(var(--ink-rgb)/.4)}
 h1,h2{
   font-family:var(--font-mono);font-weight:400;margin:0;
-  font-size:clamp(28px,3.2vw,48px);line-height:1.16;letter-spacing:-.01em;white-space:nowrap;
+  font-size:var(--fs-title);line-height:1.16;letter-spacing:-.01em;white-space:nowrap;
   transition:opacity .9s var(--ease-cubic) .06s,transform .9s var(--ease-cubic) .06s}
-h2{font-size:clamp(28px,3.2vw,48px)}
+h2{font-size:var(--fs-title)}
 .sec-body{
   margin:var(--space-md) 0 0;max-width:46ch;
-  font-size:clamp(14.5px,1.05vw,17px);line-height:1.85;
+  font-size:var(--fs-body);line-height:var(--lh-body);
   color:rgb(var(--ink-rgb)/.62);
   transition:opacity .9s var(--ease-cubic) .16s,transform .9s var(--ease-cubic) .16s}
 .sec-body strong{font:inherit;font-weight:500;color:rgb(var(--ink-rgb)/.96)}
@@ -155,17 +165,17 @@ h2{font-size:clamp(28px,3.2vw,48px)}
 .spec div{
   display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;
   padding:11px 0;border-bottom:1px solid rgb(var(--ink-rgb)/.07)}
-.spec dt{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.2em;color:rgb(var(--ink-rgb)/.44);text-transform:uppercase}
-.spec dd{margin:0;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;color:var(--color-white);
+.spec dt{font-family:var(--font-mono);font-size:var(--fs-meta);letter-spacing:.2em;color:rgb(var(--ink-rgb)/.44);text-transform:uppercase}
+.spec dd{margin:0;font-family:var(--font-mono);font-size:var(--fs-val);letter-spacing:.06em;color:var(--color-white);
   font-variant-numeric:tabular-nums;text-align:right}
-.spec dd i{font-style:normal;color:rgb(var(--ink-rgb)/.4);font-size:11px}
+.spec dd i{font-style:normal;color:rgb(var(--ink-rgb)/.4);font-size:.88em}
 
 /* 偈文 */
 .verse{
   margin:var(--space-md) 0 0;max-width:min(560px,100%);
   border-top:1px solid rgb(var(--ink-rgb)/.1);border-bottom:1px solid rgb(var(--ink-rgb)/.1);
   padding:clamp(26px,3.4vw,40px) 0;
-  font-family:var(--font-mono);font-size:clamp(15.5px,1.26vw,18px);
+  font-family:var(--font-mono);font-size:var(--fs-verse);
   line-height:2.1;letter-spacing:.09em;color:rgb(var(--ink-rgb)/.86);
   transition:opacity .9s var(--ease-cubic) .32s,transform .9s var(--ease-cubic) .32s}
 .verse span{display:block}
@@ -181,13 +191,13 @@ h2{font-size:clamp(28px,3.2vw,48px)}
   align-items:baseline;padding:clamp(20px,2.6vw,32px) 0;
   border-bottom:1px solid rgb(var(--ink-rgb)/.07);position:relative;
   transition:padding-left var(--t-state) var(--ease-quart)}
-.app .idx{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;color:var(--accent)}
+.app .idx{font-family:var(--font-mono);font-size:var(--fs-idx);letter-spacing:.2em;color:var(--accent)}
 .app h3{font-family:var(--font-mono);font-weight:400;margin:0;
-  font-size:clamp(19px,2.3vw,30px);letter-spacing:-.005em;transition:color var(--t-hover) var(--ease-quart)}
-.app p{margin:.7em 0 0;font-size:clamp(13px,1vw,15px);color:rgb(var(--ink-rgb)/.55);
-  line-height:1.8;max-width:44ch}
+  font-size:var(--fs-sub);letter-spacing:-.005em;transition:color var(--t-hover) var(--ease-quart)}
+.app p{margin:.7em 0 0;font-size:var(--fs-body);color:rgb(var(--ink-rgb)/.55);
+  line-height:var(--lh-body);max-width:44ch}
 .app p strong{color:rgb(var(--ink-rgb)/.8);font-weight:500}
-.app .go{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;
+.app .go{font-family:var(--font-mono);font-size:var(--fs-meta);letter-spacing:.2em;
   color:rgb(var(--ink-rgb)/.34);white-space:nowrap;transition:color var(--t-hover) var(--ease-quart)}
 .app::before{content:"";position:absolute;left:calc(-1 * var(--margin-side));right:calc(-1 * var(--margin-side));
   top:0;bottom:0;z-index:-1;opacity:0;
@@ -203,7 +213,7 @@ h2{font-size:clamp(28px,3.2vw,48px)}
 }
 .note{
   margin-top:clamp(24px,3vw,38px);font-family:var(--font-mono);
-  font-size:clamp(10.5px,.86vw,11.5px);letter-spacing:.06em;line-height:2;
+  font-size:var(--fs-meta);letter-spacing:.06em;line-height:2;
   color:rgb(var(--ink-rgb)/.34);max-width:min(52ch,100%)}
 
 /* ── 底栏 ── */
@@ -352,8 +362,7 @@ h2{font-size:clamp(28px,3.2vw,48px)}
       </div>
       <p class="sec-body">
         反进以敛、反取以俟、反候以不闻、反争以息、反复以不逐、反执以遣——
-        <strong>六个与本能相反的动作</strong>。<br />
-        逆则成仙，顺则凡。
+        <strong>六个与本能相反的动作</strong>。
       </p>
       <dl class="spec">
         <div><dt>反进</dt><dd>敛 <i>· 敛刃，藏锋不出</i></dd></div>
