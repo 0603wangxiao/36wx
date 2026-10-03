@@ -118,7 +118,7 @@ a{color:inherit;text-decoration:none}
 /* ── 正文 ── */
 main{position:relative;z-index:10}
 section{
-  min-height:100svh;display:flex;align-items:center;
+  min-height:100svh;display:flex;align-items:flex-start;
   padding:clamp(104px,13vh,150px) var(--margin-side) clamp(112px,14vh,160px);
   max-width:var(--container);margin-inline:auto;
 }
@@ -130,9 +130,9 @@ section{
 .sec-no span{font-family:var(--font-mono);font-size:10px;letter-spacing:.26em;color:rgb(var(--ink-rgb)/.4)}
 h1,h2{
   font-family:var(--font-mono);font-weight:400;margin:0;
-  font-size:clamp(30px,3.4vw,52px);line-height:1.14;letter-spacing:-.01em;white-space:nowrap;
+  font-size:clamp(28px,3.2vw,48px);line-height:1.16;letter-spacing:-.01em;white-space:nowrap;
   transition:opacity .9s var(--ease-cubic) .06s,transform .9s var(--ease-cubic) .06s}
-h2{font-size:clamp(26px,3vw,46px)}
+h2{font-size:clamp(28px,3.2vw,48px)}
 .sec-body{
   margin:var(--space-md) 0 0;max-width:46ch;
   font-size:clamp(14.5px,1.05vw,17px);line-height:1.85;
@@ -140,8 +140,7 @@ h2{font-size:clamp(26px,3vw,46px)}
   transition:opacity .9s var(--ease-cubic) .16s,transform .9s var(--ease-cubic) .16s}
 .sec-body strong{font:inherit;font-weight:500;color:rgb(var(--ink-rgb)/.96)}
 .sec-body em{font-style:normal;color:var(--accent)}   /* 只靠颜色区分，不改字体与字号 */
-.sec-lede span{display:block}
-.sec-lede span+span{margin-top:.42em}
+
 /* 无 JS 时内容默认可见（避免 JS 失败导致整页空白）；
    有 JS 时才做入场动画 —— 由 <html class="js"> 触发 */
 .js .sec-no,.js h1,.js h2,.js .sec-body,.js .spec,.js .verse,.js .apps{opacity:0;transform:translateY(14px)}
@@ -230,13 +229,13 @@ h2{font-size:clamp(26px,3vw,46px)}
 
 /* ── 宽屏两栏：左栏编号与大标题，右栏正文与规格表（避免右侧大面积留白）── */
 @media(min-width:1080px){
-  section{align-items:center;justify-content:center}
+  section{align-items:flex-start;justify-content:center}
   /* 整块居中并限宽：留白左右分摊，而不是全堆在右侧 */
   .lead{
     flex:0 1 auto;width:100%;max-width:1480px;margin:0 auto;
     display:grid;grid-template-columns:minmax(240px,420px) minmax(0,1fr);
     column-gap:clamp(48px,5vw,120px);row-gap:clamp(18px,2.2vw,38px);
-    align-items:start;align-content:center}
+    align-items:start;align-content:start}
   /* 编号与标题同处一个单元格并紧贴 —— 否则第一行高度被右栏正文撑高，
      标题会被推到下方，出现百余像素的空档 */
   .lead-head{grid-column:1;grid-row:1;align-self:start}
@@ -308,10 +307,10 @@ h2{font-size:clamp(26px,3vw,46px)}
         <div class="sec-no"><b>00</b><span>ORIGIN</span></div>
         <h1>《三变·六反》</h1>
       </div>
-      <p class="sec-body sec-lede">
-        <span>一套自创的分析框架。<strong>三变讲章法</strong>——三层递进之变。</span>
-        <span><strong>六反讲操作</strong>——六个与本能相反的动作。</span>
-        <span>框架不预测结果，它规定的是<em>看待与应对的顺序</em>。</span>
+      <p class="sec-body">
+        一套自创的分析框架。<strong>三变讲章法</strong>——三层递进之变。<br />
+        <strong>六反讲操作</strong>——六个与本能相反的动作。<br />
+        框架不预测结果，它规定的是<em>看待与应对的顺序</em>。
       </p>
       <div class="verse" aria-label="偈文">
         <span>露启新舸，刃敛于空；</span>
@@ -373,6 +372,10 @@ h2{font-size:clamp(26px,3vw,46px)}
         <div class="sec-no"><b>03</b><span>APPLICATIONS</span></div>
         <h2>三个应用</h2>
       </div>
+      <p class="sec-body">
+        三个应用共用同一套框架，可视为一个体系的三个切面。<br />
+        「本体」与「投资」两张图谱为桌面端设计，建议用电脑打开。
+      </p>
       <div class="apps">
         <a class="app" href="https://0603wangxiao.github.io/geosandbox/">
           <span class="idx">01</span>
@@ -399,10 +402,6 @@ h2{font-size:clamp(26px,3vw,46px)}
           <span class="go">打开图谱 →</span>
         </a>
       </div>
-      <p class="note">
-        三个站点共用同一套框架，可视为一个体系的三个切面。<br />
-        「本体」与「投资」两张图谱为桌面端设计，建议用电脑打开。
-      </p>
     </div>
   </section>
 
@@ -472,7 +471,7 @@ h2{font-size:clamp(26px,3vw,46px)}
   }
   function seed(){
     ps=[];
-    var n=Math.round(Math.min(230,(W*H)/11000));
+    var n=Math.round(Math.min(340,(W*H)/7600));
     for(var i=0;i<n;i++){
       ps.push({
         x:Math.random()*W, y:Math.random()*H,
