@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>《三变·六反》— 框架与三个应用</title>
+<meta name="description" content="《三变·六反》是一套自创的分析框架：三变讲章法（立止功 · 了旧事 · 立常道），六反讲操作（与本能相反的六个动作）。这里是框架本体与它的三个应用：地缘风险沙盘、知识图谱、投资策略图谱。">
+<meta name="author" content="王潇">
+<meta property="og:type" content="website">
+<meta property="og:title" content="《三变·六反》— 框架与三个应用">
+<meta property="og:description" content="三变讲章法，六反讲操作。三个应用：地缘风险沙盘 · 知识图谱 · 投资策略图谱。">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0B0C'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%23C0503A'%3E%E4%B8%89%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0A0B0C;
+  --panel:#111314;
+  --ink:#EDE7DC;
+  --ink2:rgba(237,231,220,.62);
+  --ink3:rgba(237,231,220,.34);
+  --line:rgba(237,231,220,.12);
+  --line2:rgba(237,231,220,.07);
+  --zhu:#C0503A;
+  --jin:#C9A227;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",Arial,sans-serif;
+  --serif:"Songti SC","Source Han Serif SC","Noto Serif SC",STSong,SimSun,serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(20px,4.4vw,72px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg);scroll-behavior:smooth;overflow-x:clip}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:clip;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--zhu);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+
+/* ── 顶栏 ── */
+.top{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:clamp(18px,2.4vw,30px) var(--pad);
+  border-bottom:1px solid var(--line2);
+}
+.mark{display:flex;align-items:center;gap:.7em;font-size:clamp(15px,1.3vw,18px);letter-spacing:.06em}
+.mark .seal{
+  display:grid;place-content:center;width:1.85em;height:1.85em;flex:none;
+  border:1.5px solid var(--zhu);border-radius:4px;color:var(--zhu);
+  font-family:var(--serif);font-size:.92em;line-height:1;
+}
+.mark b{font-weight:600;letter-spacing:.14em}
+.top .meta{font-size:clamp(11px,.82vw,12.5px);color:var(--ink3);letter-spacing:.12em;text-align:right}
+
+/* ── Hero ── */
+.hero{padding-top:clamp(64px,11vw,150px);padding-bottom:clamp(48px,7vw,96px);text-align:center}
+.hero .kicker{
+  font-size:clamp(11px,.85vw,13px);letter-spacing:.4em;color:var(--zhu);
+  text-transform:uppercase;margin-bottom:clamp(20px,3vw,34px);
+}
+.hero h1{
+  margin:0;font-family:var(--serif);
+  font-size:clamp(2.6rem,8.4vw,6.2rem);font-weight:400;
+  letter-spacing:.1em;line-height:1.1;
+}
+.hero .en{
+  margin:.6em 0 0;font-size:clamp(11px,.9vw,13px);
+  letter-spacing:.46em;color:var(--ink3);text-transform:uppercase;
+}
+.hero .lede{
+  margin:clamp(30px,4.4vw,52px) auto 0;max-width:min(34em,100%);
+  font-size:clamp(14px,1.12vw,17px);color:var(--ink2);
+}
+.verse{
+  margin:clamp(40px,6vw,76px) auto 0;max-width:min(30em,100%);
+  font-family:var(--serif);font-size:clamp(15px,1.35vw,20px);
+  line-height:2.15;letter-spacing:.14em;color:var(--ink);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:clamp(28px,4vw,46px) 0;
+}
+.verse span{display:block}
+.verse span+span{margin-top:.15em}
+
+/* ── 框架两栏 ── */
+.frame{
+  display:grid;gap:clamp(18px,2.4vw,30px);
+  padding-top:clamp(48px,7vw,96px);
+  grid-template-columns:1fr;
+}
+@media(min-width:820px){.frame{grid-template-columns:1fr 1fr}}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:clamp(24px,3.2vw,44px);
+}
+.card .num{
+  font-size:clamp(10px,.78vw,11.5px);letter-spacing:.3em;color:var(--zhu);
+  text-transform:uppercase;
+}
+.card h2{
+  margin:.5em 0 .7em;font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.5rem,2.5vw,2.2rem);letter-spacing:.1em;
+}
+.card p{margin:0;font-size:clamp(13.5px,1.02vw,15.5px);color:var(--ink2);line-height:1.95}
+.card p+p{margin-top:.9em}
+.card .k{color:var(--ink);font-weight:600}
+.card ul{
+  margin:.9em 0 0;padding:0;list-style:none;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.5em;
+}
+.card ul li{
+  font-family:var(--serif);font-size:clamp(14px,1.05vw,16.5px);
+  letter-spacing:.1em;color:var(--ink);
+  border-left:2px solid var(--line);padding-left:.75em;
+}
+
+/* ── 三个应用 ── */
+.apps{padding-top:clamp(64px,9vw,130px);overflow-x:clip}
+.sec-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  border-bottom:1px solid var(--line);padding-bottom:1em;margin-bottom:clamp(10px,1.6vw,20px);
+}
+.sec-head h2{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:.12em}
+.sec-head .cnt{font-size:clamp(10px,.78vw,11.5px);letter-spacing:.24em;color:var(--ink3)}
+
+.app{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;
+  gap:clamp(14px,2.4vw,40px);
+  padding:clamp(26px,3.4vw,48px) 0;
+  border-bottom:1px solid var(--line2);
+  position:relative;transition:padding-left .5s var(--ease);
+}
+.app::before{
+  content:"";position:absolute;left:calc(-1 * var(--pad));right:calc(-1 * var(--pad));
+  top:0;bottom:0;z-index:-1;opacity:0;
+  background:linear-gradient(90deg,rgba(192,80,58,.14),transparent 70%);
+  transition:opacity .5s var(--ease);
+}
+.app:hover::before{opacity:1}
+@media(min-width:820px){.app:hover{padding-left:clamp(10px,1.6vw,24px)}}
+.app .idx{
+  font-family:var(--serif);font-size:clamp(13px,1.1vw,16px);
+  color:var(--zhu);letter-spacing:.1em;
+}
+.app .main{min-width:0}
+.app h3{
+  margin:0;font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.5rem,3.1vw,2.5rem);letter-spacing:.08em;line-height:1.25;
+  transition:color .4s var(--ease);
+}
+.app:hover h3{color:var(--zhu)}
+.app p{
+  margin:.6em 0 0;font-size:clamp(13px,1vw,15px);
+  color:var(--ink2);max-width:min(46ch,100%);line-height:1.85;
+}
+.app .go{
+  font-size:clamp(11px,.84vw,12.5px);color:var(--ink3);
+  letter-spacing:.16em;white-space:nowrap;
+}
+@media(max-width:719px){
+  .app{grid-template-columns:auto 1fr;gap:10px 14px}
+  .app .go{grid-column:2;justify-self:start}
+}
+.note{
+  margin-top:clamp(26px,3.4vw,44px);
+  font-size:clamp(12px,.9vw,13.5px);color:var(--ink3);line-height:1.9;
+  border-left:2px solid var(--line);padding-left:1em;max-width:min(52ch,100%);
+}
+
+/* ── 页脚 ── */
+footer{
+  margin-top:clamp(72px,10vw,150px);
+  border-top:1px solid var(--line);
+  padding:clamp(30px,4vw,52px) 0 clamp(40px,5vw,70px);
+  display:flex;flex-wrap:wrap;gap:14px 30px;justify-content:space-between;
+  font-size:clamp(11px,.84vw,12.5px);color:var(--ink3);letter-spacing:.04em;
+}
+footer .fl{display:flex;gap:1.5em;flex-wrap:wrap}
+footer a{border-bottom:1px solid var(--line);transition:color .3s,border-color .3s}
+footer a:hover{color:var(--ink);border-color:var(--ink)}
+
+@media(max-width:420px){
+  .verse{font-size:14px;letter-spacing:.09em;line-height:2.05}
+  .hero h1{letter-spacing:.06em}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="mark" href="#top"><span class="seal">三</span><b>三变·六反</b></a>
+  <div class="meta">框架与三个应用</div>
+</div>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <div class="kicker">Sanbian · Liufan</div>
+    <h1>《三变·六反》</h1>
+    <p class="en">A framework of three shifts and six inversions</p>
+    <p class="lede">
+      一套自创的分析框架。<span style="color:var(--ink)">三变讲章法</span>——三层递进之变；
+      <span style="color:var(--ink)">六反讲操作</span>——六个与本能相反的动作。
+      框架不预测结果，它规定的是<em style="font-style:normal;color:var(--ink)">看待与应对的顺序</em>。
+    </p>
+
+    <div class="verse" aria-label="偈文">
+      <span>露启新舸，刃敛于空；</span>
+      <span>需俟云泽，毋蹈渊冲。</span>
+      <span>炉前观火，不闻潮期；</span>
+      <span>天水相岐，息讼消功。</span>
+      <span>涤蛊了惑，不逐往复；</span>
+      <span>万化自迁，鸿渐循序。</span>
+      <span>洞变于内，存孚于常；</span>
+      <span>历诸尘浪，随势遣执。</span>
+      <span>先甲后甲，山上有木。</span>
+    </div>
+  </section>
+
+  <section class="wrap frame">
+    <div class="card">
+      <div class="num">变 · 一</div>
+      <h2>三变 · 章法</h2>
+      <p>上章立止功、中章了旧事、下章立常道——<span class="k">三层递进之变</span>。</p>
+      <p>止是定，了是慧，常是行；由止发慧，由慧起行。</p>
+      <ul>
+        <li>上章 · 立止功</li>
+        <li>中章 · 了旧事</li>
+        <li>下章 · 立常道</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="num">反 · 六</div>
+      <h2>六反 · 操作</h2>
+      <p>反进以敛、反取以俟、反候以不闻、反争以息、反复以不逐、反执以遣——<span class="k">六个与本能相反的动作</span>。</p>
+      <p>逆则成仙，顺则凡。</p>
+      <ul>
+        <li>敛</li><li>俟</li><li>不闻</li>
+        <li>息</li><li>不逐</li><li>遣</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap apps">
+    <div class="sec-head">
+      <h2>三个应用</h2>
+      <div class="cnt">03 应用</div>
+    </div>
+
+    <a class="app" href="https://0603wangxiao.github.io/geosandbox/" target="_blank" rel="noopener">
+      <span class="idx">01</span>
+      <span class="main">
+        <h3>应用于地缘</h3>
+        <p>武装冲突伤亡记录与风险推演。每个数字标注信源与口径，一律为「经核实的最低确证数」；已核实事实与推演情景严格分栏，后者一律加【推演情景】标签。</p>
+      </span>
+      <span class="go">进入沙盘 →</span>
+    </a>
+
+    <a class="app" href="https://36wx.netlify.app/" target="_blank" rel="noopener">
+      <span class="idx">02</span>
+      <span class="main">
+        <h3>框架本体 · 知识图谱</h3>
+        <p>把框架本身画成一张可缩放的知识图谱：三章、六反、卦象与偈文依序展开，每个节点可点开看释义与出处。</p>
+      </span>
+      <span class="go">打开图谱 →</span>
+    </a>
+
+    <a class="app" href="https://36wx-investment.netlify.app/" target="_blank" rel="noopener">
+      <span class="idx">03</span>
+      <span class="main">
+        <h3>应用于投资</h3>
+        <p>同一套框架在投资研究中的展开：图谱化的概念关系与操作次序。属个人研究笔记与方法整理，不构成任何投资建议。</p>
+      </span>
+      <span class="go">打开图谱 →</span>
+    </a>
+
+    <p class="note">
+      「本体」与「投资」两张图谱为桌面端设计，建议用电脑打开。<br>
+      三个站点共用同一套框架，可视为一个体系的三个切面。
+    </p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>© 2026 王潇 ·《三变·六反》· 自由使用，请注明来处；禁止商用</div>
+  <div class="fl">
+    <a href="https://0603wangxiao.github.io/geosandbox/">地缘沙盘</a>
+    <a href="https://36wx.netlify.app/">知识图谱</a>
+    <a href="https://36wx-investment.netlify.app/">投资图谱</a>
+  </div>
+</footer>
+
+</body>
+</html>
