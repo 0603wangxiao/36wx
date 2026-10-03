@@ -4,300 +4,466 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>《三变·六反》— 框架与三个应用</title>
-<meta name="description" content="《三变·六反》是一套自创的分析框架：三变讲章法（立止功 · 了旧事 · 立常道），六反讲操作（与本能相反的六个动作）。这里是框架本体与它的三个应用：地缘风险沙盘、知识图谱、投资策略图谱。">
+<meta name="description" content="《三变·六反》是一套自创的分析框架：三变讲章法（立止功 · 了旧事 · 立常道），六反讲操作（敛 · 俟 · 不闻 · 息 · 不逐 · 遣）。这里是框架本体与它的三个应用：地缘风险沙盘、知识图谱、投资策略图谱。">
 <meta name="author" content="王潇">
 <meta property="og:type" content="website">
 <meta property="og:title" content="《三变·六反》— 框架与三个应用">
 <meta property="og:description" content="三变讲章法，六反讲操作。三个应用：地缘风险沙盘 · 知识图谱 · 投资策略图谱。">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0B0C'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%23C0503A'%3E%E4%B8%89%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#191a1e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191a1e'/%3E%3Ctext x='32' y='44' font-size='32' text-anchor='middle' fill='%23acffce'%3E%E4%B8%89%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js")</script>
 <style>
 :root{
-  --bg:#0A0B0C;
-  --panel:#111314;
-  --ink:#EDE7DC;
-  --ink2:rgba(237,231,220,.62);
-  --ink3:rgba(237,231,220,.34);
-  --line:rgba(237,231,220,.12);
-  --line2:rgba(237,231,220,.07);
-  --zhu:#C0503A;
-  --jin:#C9A227;
-  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",Arial,sans-serif;
-  --serif:"Songti SC","Source Han Serif SC","Noto Serif SC",STSong,SimSun,serif;
-  --ease:cubic-bezier(.16,1,.3,1);
-  --pad:clamp(20px,4.4vw,72px);
+  --color-dark:#191a1e;
+  --color-white:#fff;
+  --accent:#acffce;
+  --accent-rgb:172 255 206;
+  --ink-rgb:255 255 255;
+
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+
+  --ease-cubic:cubic-bezier(.33,1,.68,1);
+  --ease-quart:cubic-bezier(.165,.84,.44,1);
+
+  --t-hover:.2s; --t-state:.35s;
+  --r-pill:99px;
+
+  --margin-side:clamp(18px,3.5vh,48px);
+  --space-sm:clamp(40px,4vw,64px);
+  --space-md:clamp(56px,5vw,80px);
+  --container:1800px;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{background:var(--bg);scroll-behavior:smooth;overflow-x:clip}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;scrollbar-width:thin;
+  scrollbar-color:rgb(var(--accent-rgb)/.45) var(--color-dark)}
+html,body{margin:0;padding:0;background:var(--color-dark);color:var(--color-white)}
 body{
-  margin:0;background:var(--bg);color:var(--ink);
-  font-family:var(--sans);line-height:1.75;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:clip;
+  font-family:var(--font-sans);font-size:clamp(15px,1.1vw,17px);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:clip;
 }
+::selection{background:rgb(var(--accent-rgb)/.24)}
 a{color:inherit;text-decoration:none}
-::selection{background:var(--zhu);color:#fff}
-.wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+
+/* ── 底纹与暗角 ── */
+.grain{
+  position:fixed;inset:0;z-index:6;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+.vig{position:fixed;inset:0;z-index:5;pointer-events:none;
+  background:radial-gradient(76% 72% at 50% 46%,transparent 44%,rgba(10,11,13,.34) 84%,rgba(8,9,11,.72) 100%)}
+#gl{position:fixed;inset:0;z-index:0;width:100%;height:100%;display:block}
+.scene-fade{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(58% 54% at 50% 44%,rgba(25,26,30,0) 42%,rgba(25,26,30,.34) 82%,rgba(25,26,30,.72) 100%)}
 
 /* ── 顶栏 ── */
 .top{
+  position:fixed;top:0;left:0;right:0;z-index:20;
   display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:clamp(18px,2.4vw,30px) var(--pad);
-  border-bottom:1px solid var(--line2);
+  padding:clamp(14px,2vh,22px) var(--margin-side);
 }
-.mark{display:flex;align-items:center;gap:.7em;font-size:clamp(15px,1.3vw,18px);letter-spacing:.06em}
-.mark .seal{
-  display:grid;place-content:center;width:1.85em;height:1.85em;flex:none;
-  border:1.5px solid var(--zhu);border-radius:4px;color:var(--zhu);
-  font-family:var(--serif);font-size:.92em;line-height:1;
-}
-.mark b{font-weight:600;letter-spacing:.14em}
-.top .meta{font-size:clamp(11px,.82vw,12.5px);color:var(--ink3);letter-spacing:.12em;text-align:right}
-
-/* ── Hero ── */
-.hero{padding-top:clamp(64px,11vw,150px);padding-bottom:clamp(48px,7vw,96px);text-align:center}
-.hero .kicker{
-  font-size:clamp(11px,.85vw,13px);letter-spacing:.4em;color:var(--zhu);
-  text-transform:uppercase;margin-bottom:clamp(20px,3vw,34px);
-}
-.hero h1{
-  margin:0;font-family:var(--serif);
-  font-size:clamp(2.6rem,8.4vw,6.2rem);font-weight:400;
-  letter-spacing:.1em;line-height:1.1;
-}
-.hero .en{
-  margin:.6em 0 0;font-size:clamp(11px,.9vw,13px);
-  letter-spacing:.46em;color:var(--ink3);text-transform:uppercase;
-}
-.hero .lede{
-  margin:clamp(30px,4.4vw,52px) auto 0;max-width:min(34em,100%);
-  font-size:clamp(14px,1.12vw,17px);color:var(--ink2);
-}
-.verse{
-  margin:clamp(40px,6vw,76px) auto 0;max-width:min(30em,100%);
-  font-family:var(--serif);font-size:clamp(15px,1.35vw,20px);
-  line-height:2.15;letter-spacing:.14em;color:var(--ink);
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:clamp(28px,4vw,46px) 0;
-}
-.verse span{display:block}
-.verse span+span{margin-top:.15em}
-
-/* ── 框架两栏 ── */
-.frame{
-  display:grid;gap:clamp(18px,2.4vw,30px);
-  padding-top:clamp(48px,7vw,96px);
-  grid-template-columns:1fr;
-}
-@media(min-width:820px){.frame{grid-template-columns:1fr 1fr}}
-.card{
-  background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  padding:clamp(24px,3.2vw,44px);
-}
-.card .num{
-  font-size:clamp(10px,.78vw,11.5px);letter-spacing:.3em;color:var(--zhu);
-  text-transform:uppercase;
-}
-.card h2{
-  margin:.5em 0 .7em;font-family:var(--serif);font-weight:400;
-  font-size:clamp(1.5rem,2.5vw,2.2rem);letter-spacing:.1em;
-}
-.card p{margin:0;font-size:clamp(13.5px,1.02vw,15.5px);color:var(--ink2);line-height:1.95}
-.card p+p{margin-top:.9em}
-.card .k{color:var(--ink);font-weight:600}
-.card ul{
-  margin:.9em 0 0;padding:0;list-style:none;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.5em;
-}
-.card ul li{
-  font-family:var(--serif);font-size:clamp(14px,1.05vw,16.5px);
-  letter-spacing:.1em;color:var(--ink);
-  border-left:2px solid var(--line);padding-left:.75em;
-}
-
-/* ── 三个应用 ── */
-.apps{padding-top:clamp(64px,9vw,130px);overflow-x:clip}
-.sec-head{
-  display:flex;align-items:baseline;justify-content:space-between;gap:18px;
-  border-bottom:1px solid var(--line);padding-bottom:1em;margin-bottom:clamp(10px,1.6vw,20px);
-}
-.sec-head h2{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:.12em}
-.sec-head .cnt{font-size:clamp(10px,.78vw,11.5px);letter-spacing:.24em;color:var(--ink3)}
-
-.app{
-  display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;
-  gap:clamp(14px,2.4vw,40px);
-  padding:clamp(26px,3.4vw,48px) 0;
-  border-bottom:1px solid var(--line2);
-  position:relative;transition:padding-left .5s var(--ease);
-}
-.app::before{
-  content:"";position:absolute;left:calc(-1 * var(--pad));right:calc(-1 * var(--pad));
-  top:0;bottom:0;z-index:-1;opacity:0;
-  background:linear-gradient(90deg,rgba(192,80,58,.14),transparent 70%);
-  transition:opacity .5s var(--ease);
-}
-.app:hover::before{opacity:1}
-@media(min-width:820px){.app:hover{padding-left:clamp(10px,1.6vw,24px)}}
-.app .idx{
-  font-family:var(--serif);font-size:clamp(13px,1.1vw,16px);
-  color:var(--zhu);letter-spacing:.1em;
-}
-.app .main{min-width:0}
-.app h3{
-  margin:0;font-family:var(--serif);font-weight:400;
-  font-size:clamp(1.5rem,3.1vw,2.5rem);letter-spacing:.08em;line-height:1.25;
-  transition:color .4s var(--ease);
-}
-.app:hover h3{color:var(--zhu)}
-.app p{
-  margin:.6em 0 0;font-size:clamp(13px,1vw,15px);
-  color:var(--ink2);max-width:min(46ch,100%);line-height:1.85;
-}
-.app .go{
-  font-size:clamp(11px,.84vw,12.5px);color:var(--ink3);
-  letter-spacing:.16em;white-space:nowrap;
-}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.mark{width:clamp(28px,3vw,38px);height:clamp(28px,3vw,38px);flex:none;overflow:visible}
+.mark circle,.mark path{stroke:var(--accent);fill:none;stroke-width:1.4;vector-effect:non-scaling-stroke}
+.mark .m-dot{fill:var(--accent);stroke:none}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.brand-txt b{font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:.16em;white-space:nowrap}
+.brand-txt span{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.22em;color:rgb(var(--ink-rgb)/.42);white-space:nowrap}
+.nav{display:flex;align-items:center;gap:clamp(10px,1.6vw,22px)}
+.nav a{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.2em;
+  color:rgb(var(--ink-rgb)/.5);position:relative;padding:6px 2px;
+  transition:color var(--t-hover) var(--ease-quart);white-space:nowrap}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1px;
+  background:var(--accent);transition:right var(--t-hover) var(--ease-quart)}
+.nav a:hover{color:var(--color-white)}
+.nav a:hover::after{right:0}
+.nav a i{font-style:normal;color:var(--accent);opacity:0;transition:opacity var(--t-hover) var(--ease-quart);margin-right:5px}
+.nav a:hover i{opacity:1}
 @media(max-width:719px){
-  .app{grid-template-columns:auto 1fr;gap:10px 14px}
+  .nav a i{display:none}
+  .nav{gap:clamp(8px,2.6vw,16px)}
+  .nav a{font-size:10px;letter-spacing:.14em}
+  .brand-txt span{display:none}          /* 小屏去掉英文副标，避免与导航挤在一行 */
+  .brand-txt b{font-size:12px;letter-spacing:.12em}
+}
+@media(max-width:400px){
+  .brand-txt b{display:none}             /* 极窄屏只留标记，把宽度让给导航 */
+  .mark{width:26px;height:26px}
+}
+
+/* ── 右侧章节轨 ── */
+.rail{
+  position:fixed;right:var(--margin-side);top:50%;transform:translateY(-50%);z-index:22;
+  display:flex;flex-direction:column;gap:14px;align-items:flex-end;
+}
+.rail button{display:flex;align-items:center;gap:9px;cursor:pointer;padding:2px 0;
+  background:none;border:0;font:inherit;color:inherit}
+.rail .rl{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;
+  color:rgb(var(--ink-rgb)/.3);transition:color var(--t-hover) var(--ease-quart);white-space:nowrap}
+.rail .rd{width:16px;height:1px;background:rgb(var(--ink-rgb)/.24);
+  transition:width var(--t-state) var(--ease-cubic),background-color var(--t-state) var(--ease-cubic)}
+.rail button:hover .rl{color:rgb(var(--ink-rgb)/.7)}
+.rail button:hover .rd{width:22px;background:rgb(var(--ink-rgb)/.5)}
+.rail button.on .rl{color:var(--accent)}
+.rail button.on .rd{width:30px;background:var(--accent);height:1.5px}
+@media(max-width:980px){.rail{display:none}}
+
+/* ── 正文 ── */
+main{position:relative;z-index:10}
+section{
+  min-height:100svh;display:flex;align-items:center;
+  padding:clamp(104px,13vh,150px) var(--margin-side) clamp(112px,14vh,160px);
+  max-width:var(--container);
+}
+.lead{flex:1;min-width:0;max-width:min(680px,100%)}
+.sec-no{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:var(--space-sm);
+  transition:opacity .8s var(--ease-cubic),transform .8s var(--ease-cubic)}
+.sec-no b{font-family:var(--font-mono);font-size:clamp(11px,1vw,13px);font-weight:400;letter-spacing:.3em;color:var(--accent)}
+.sec-no span{font-family:var(--font-mono);font-size:10px;letter-spacing:.26em;color:rgb(var(--ink-rgb)/.4)}
+h1,h2{
+  font-family:var(--font-mono);font-weight:400;margin:0;
+  font-size:clamp(32px,5.2vw,74px);line-height:1.12;letter-spacing:-.01em;
+  transition:opacity .9s var(--ease-cubic) .06s,transform .9s var(--ease-cubic) .06s}
+h2{font-size:clamp(26px,4vw,54px)}
+.sec-body{
+  margin:var(--space-md) 0 0;max-width:46ch;
+  font-size:clamp(14.5px,1.05vw,17px);line-height:1.85;
+  color:rgb(var(--ink-rgb)/.62);
+  transition:opacity .9s var(--ease-cubic) .16s,transform .9s var(--ease-cubic) .16s}
+.sec-body strong{color:rgb(var(--ink-rgb)/.94);font-weight:500}
+.sec-body em{font-style:normal;font-family:var(--font-mono);font-size:.92em;color:var(--accent)}
+/* 无 JS 时内容默认可见（避免 JS 失败导致整页空白）；
+   有 JS 时才做入场动画 —— 由 <html class="js"> 触发 */
+.js .sec-no,.js h1,.js h2,.js .sec-body,.js .spec,.js .verse,.js .apps{opacity:0;transform:translateY(14px)}
+.js section.in .sec-no,.js section.in h1,.js section.in h2,.js section.in .sec-body,
+.js section.in .spec,.js section.in .verse,.js section.in .apps{opacity:1;transform:none}
+
+/* 规格表 */
+.spec{
+  margin-top:var(--space-md);border-top:1px solid rgb(var(--ink-rgb)/.1);
+  max-width:min(520px,100%);
+  transition:opacity .9s var(--ease-cubic) .26s,transform .9s var(--ease-cubic) .26s}
+.spec div{
+  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid rgb(var(--ink-rgb)/.07)}
+.spec dt{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.2em;color:rgb(var(--ink-rgb)/.44);text-transform:uppercase}
+.spec dd{margin:0;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;color:var(--color-white);
+  font-variant-numeric:tabular-nums;text-align:right}
+.spec dd i{font-style:normal;color:rgb(var(--ink-rgb)/.4);font-size:11px}
+
+/* 偈文 */
+.verse{
+  margin:var(--space-md) 0 0;max-width:min(560px,100%);
+  border-top:1px solid rgb(var(--ink-rgb)/.1);border-bottom:1px solid rgb(var(--ink-rgb)/.1);
+  padding:clamp(26px,3.4vw,40px) 0;
+  font-family:var(--font-mono);font-size:clamp(13px,1.05vw,15px);
+  line-height:2.2;letter-spacing:.1em;color:rgb(var(--ink-rgb)/.86);
+  transition:opacity .9s var(--ease-cubic) .32s,transform .9s var(--ease-cubic) .32s}
+.verse span{display:block}
+.verse span:last-child{margin-top:.5em;color:var(--accent)}
+
+/* 三个应用 */
+.apps{
+  margin-top:var(--space-md);max-width:min(820px,100%);
+  border-top:1px solid rgb(var(--ink-rgb)/.1);
+  transition:opacity .9s var(--ease-cubic) .26s,transform .9s var(--ease-cubic) .26s}
+.app{
+  display:grid;grid-template-columns:auto 1fr auto;gap:clamp(14px,2.4vw,34px);
+  align-items:baseline;padding:clamp(20px,2.6vw,32px) 0;
+  border-bottom:1px solid rgb(var(--ink-rgb)/.07);position:relative;
+  transition:padding-left var(--t-state) var(--ease-quart)}
+.app .idx{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;color:var(--accent)}
+.app h3{font-family:var(--font-mono);font-weight:400;margin:0;
+  font-size:clamp(19px,2.3vw,30px);letter-spacing:-.005em;transition:color var(--t-hover) var(--ease-quart)}
+.app p{margin:.7em 0 0;font-size:clamp(13px,1vw,15px);color:rgb(var(--ink-rgb)/.55);
+  line-height:1.8;max-width:44ch}
+.app p strong{color:rgb(var(--ink-rgb)/.8);font-weight:500}
+.app .go{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;
+  color:rgb(var(--ink-rgb)/.34);white-space:nowrap;transition:color var(--t-hover) var(--ease-quart)}
+.app::before{content:"";position:absolute;left:calc(-1 * var(--margin-side));right:calc(-1 * var(--margin-side));
+  top:0;bottom:0;z-index:-1;opacity:0;
+  background:linear-gradient(90deg,rgb(var(--accent-rgb)/.07),transparent 72%);
+  transition:opacity var(--t-hover) var(--ease-quart)}
+.app:hover::before{opacity:1}
+.app:hover h3{color:var(--accent)}
+.app:hover .go{color:rgb(var(--ink-rgb)/.7)}
+@media(min-width:900px){.app:hover{padding-left:clamp(8px,1.4vw,18px)}}
+@media(max-width:719px){
+  .app{grid-template-columns:auto 1fr;gap:8px 14px}
   .app .go{grid-column:2;justify-self:start}
 }
 .note{
-  margin-top:clamp(26px,3.4vw,44px);
-  font-size:clamp(12px,.9vw,13.5px);color:var(--ink3);line-height:1.9;
-  border-left:2px solid var(--line);padding-left:1em;max-width:min(52ch,100%);
-}
+  margin-top:clamp(24px,3vw,38px);font-family:var(--font-mono);
+  font-size:clamp(10.5px,.86vw,11.5px);letter-spacing:.06em;line-height:2;
+  color:rgb(var(--ink-rgb)/.34);max-width:min(52ch,100%)}
 
-/* ── 页脚 ── */
-footer{
-  margin-top:clamp(72px,10vw,150px);
-  border-top:1px solid var(--line);
-  padding:clamp(30px,4vw,52px) 0 clamp(40px,5vw,70px);
-  display:flex;flex-wrap:wrap;gap:14px 30px;justify-content:space-between;
-  font-size:clamp(11px,.84vw,12.5px);color:var(--ink3);letter-spacing:.04em;
-}
-footer .fl{display:flex;gap:1.5em;flex-wrap:wrap}
-footer a{border-bottom:1px solid var(--line);transition:color .3s,border-color .3s}
-footer a:hover{color:var(--ink);border-color:var(--ink)}
-
-@media(max-width:420px){
-  .verse{font-size:14px;letter-spacing:.09em;line-height:2.05}
-  .hero h1{letter-spacing:.06em}
-}
+/* ── 底栏 ── */
+.foot{
+  position:relative;z-index:20;
+  padding:18px var(--margin-side) 22px;
+  display:flex;align-items:center;gap:clamp(12px,1.6vw,22px);flex-wrap:wrap;
+  border-top:1px solid rgb(var(--ink-rgb)/.08);
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;
+  color:rgb(var(--ink-rgb)/.36)}
+.foot .fl{display:flex;gap:1.4em;flex-wrap:wrap;margin-left:auto}
+.foot a{position:relative;padding-bottom:2px;transition:color var(--t-hover) var(--ease-quart)}
+.foot a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+  background:var(--accent);transition:right var(--t-hover) var(--ease-quart)}
+.foot a:hover{color:var(--color-white)}
+.foot a:hover::after{right:0}
+.sep{width:1px;height:14px;background:rgb(var(--ink-rgb)/.14);flex:none}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+  .sec-no,h1,h2,.sec-body,.spec,.verse,.apps{opacity:1!important;transform:none!important;transition:none!important}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
 </style>
 </head>
 <body>
 
-<div class="top">
-  <a class="mark" href="#top"><span class="seal">三</span><b>三变·六反</b></a>
-  <div class="meta">框架与三个应用</div>
-</div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="scene-fade"></div>
+<div class="vig"></div>
+<div class="grain"></div>
 
-<main id="top">
+<header class="top">
+  <a class="brand" href="#c0">
+    <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="16.2"></circle>
+      <circle cx="20" cy="20" r="9.4"></circle>
+      <path d="M20 3.8v32.4M3.8 20h32.4"></path>
+      <circle class="m-dot" cx="20" cy="3.8" r="1.9"></circle>
+    </svg>
+    <span class="brand-txt"><b>三变·六反</b><span>SANBIAN · LIUFAN</span></span>
+  </a>
+  <nav class="nav">
+    <a href="#c1"><i>1</i>三变</a>
+    <a href="#c2"><i>2</i>六反</a>
+    <a href="#c3"><i>3</i>应用</a>
+  </nav>
+</header>
 
-  <section class="hero wrap">
-    <div class="kicker">Sanbian · Liufan</div>
-    <h1>《三变·六反》</h1>
-    <p class="en">A framework of three shifts and six inversions</p>
-    <p class="lede">
-      一套自创的分析框架。<span style="color:var(--ink)">三变讲章法</span>——三层递进之变；
-      <span style="color:var(--ink)">六反讲操作</span>——六个与本能相反的动作。
-      框架不预测结果，它规定的是<em style="font-style:normal;color:var(--ink)">看待与应对的顺序</em>。
-    </p>
+<nav class="rail" aria-label="章节">
+  <button data-goto="0"><span class="rl">00 起</span><span class="rd"></span></button>
+  <button data-goto="1"><span class="rl">01 变</span><span class="rd"></span></button>
+  <button data-goto="2"><span class="rl">02 反</span><span class="rd"></span></button>
+  <button data-goto="3"><span class="rl">03 用</span><span class="rd"></span></button>
+</nav>
 
-    <div class="verse" aria-label="偈文">
-      <span>露启新舸，刃敛于空；</span>
-      <span>需俟云泽，毋蹈渊冲。</span>
-      <span>炉前观火，不闻潮期；</span>
-      <span>天水相岐，息讼消功。</span>
-      <span>涤蛊了惑，不逐往复；</span>
-      <span>万化自迁，鸿渐循序。</span>
-      <span>洞变于内，存孚于常；</span>
-      <span>历诸尘浪，随势遣执。</span>
-      <span>先甲后甲，山上有木。</span>
+<main>
+
+  <section id="c0">
+    <div class="lead">
+      <div class="sec-no"><b>00</b><span>ORIGIN</span></div>
+      <h1>《三变·六反》</h1>
+      <p class="sec-body">
+        一套自创的分析框架。<strong>三变讲章法</strong>——三层递进之变；
+        <strong>六反讲操作</strong>——六个与本能相反的动作。
+        框架不预测结果，它规定的是<em>看待与应对的顺序</em>。
+      </p>
+      <div class="verse" aria-label="偈文">
+        <span>露启新舸，刃敛于空；</span>
+        <span>需俟云泽，毋蹈渊冲。</span>
+        <span>炉前观火，不闻潮期；</span>
+        <span>天水相岐，息讼消功。</span>
+        <span>涤蛊了惑，不逐往复；</span>
+        <span>万化自迁，鸿渐循序。</span>
+        <span>洞变于内，存孚于常；</span>
+        <span>历诸尘浪，随势遣执。</span>
+        <span>先甲后甲，山上有木。</span>
+      </div>
     </div>
   </section>
 
-  <section class="wrap frame">
-    <div class="card">
-      <div class="num">变 · 一</div>
+  <section id="c1">
+    <div class="lead">
+      <div class="sec-no"><b>01</b><span>THREE SHIFTS</span></div>
       <h2>三变 · 章法</h2>
-      <p>上章立止功、中章了旧事、下章立常道——<span class="k">三层递进之变</span>。</p>
-      <p>止是定，了是慧，常是行；由止发慧，由慧起行。</p>
-      <ul>
-        <li>上章 · 立止功</li>
-        <li>中章 · 了旧事</li>
-        <li>下章 · 立常道</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <div class="num">反 · 六</div>
-      <h2>六反 · 操作</h2>
-      <p>反进以敛、反取以俟、反候以不闻、反争以息、反复以不逐、反执以遣——<span class="k">六个与本能相反的动作</span>。</p>
-      <p>逆则成仙，顺则凡。</p>
-      <ul>
-        <li>敛</li><li>俟</li><li>不闻</li>
-        <li>息</li><li>不逐</li><li>遣</li>
-      </ul>
+      <p class="sec-body">
+        上章立止功、中章了旧事、下章立常道——<strong>三层递进之变</strong>。<br />
+        止是定，了是慧，常是行；由止发慧，由慧起行。
+      </p>
+      <dl class="spec">
+        <div><dt>上章</dt><dd>立止功 <i>· 止其妄动，心归墟</i></dd></div>
+        <div><dt>中章</dt><dd>了旧事 <i>· 了其旧缚，事归空</i></dd></div>
+        <div><dt>下章</dt><dd>立常道 <i>· 常其本心，德归俗</i></dd></div>
+      </dl>
     </div>
   </section>
 
-  <section class="wrap apps">
-    <div class="sec-head">
-      <h2>三个应用</h2>
-      <div class="cnt">03 应用</div>
+  <section id="c2">
+    <div class="lead">
+      <div class="sec-no"><b>02</b><span>SIX INVERSIONS</span></div>
+      <h2>六反 · 操作</h2>
+      <p class="sec-body">
+        反进以敛、反取以俟、反候以不闻、反争以息、反复以不逐、反执以遣——
+        <strong>六个与本能相反的动作</strong>。<br />
+        逆则成仙，顺则凡。
+      </p>
+      <dl class="spec">
+        <div><dt>反进</dt><dd>敛 <i>· 敛刃，藏锋不出</i></dd></div>
+        <div><dt>反取</dt><dd>俟 <i>· 需俟云泽，待时而动</i></dd></div>
+        <div><dt>反候</dt><dd>不闻 <i>· 不闻潮期，观而不发</i></dd></div>
+        <div><dt>反争</dt><dd>息 <i>· 息讼消功，争心自息</i></dd></div>
+        <div><dt>反复</dt><dd>不逐 <i>· 不逐往复，轮停自止</i></dd></div>
+        <div><dt>反执</dt><dd>遣 <i>· 随势遣执，执舍势行</i></dd></div>
+      </dl>
     </div>
+  </section>
 
-    <a class="app" href="https://0603wangxiao.github.io/geosandbox/" target="_blank" rel="noopener">
-      <span class="idx">01</span>
-      <span class="main">
-        <h3>应用于地缘</h3>
-        <p>武装冲突伤亡记录与风险推演。每个数字标注信源与口径，一律为「经核实的最低确证数」；已核实事实与推演情景严格分栏，后者一律加【推演情景】标签。</p>
-      </span>
-      <span class="go">进入沙盘 →</span>
-    </a>
-
-    <a class="app" href="kg/" target="_blank" rel="noopener">
-      <span class="idx">02</span>
-      <span class="main">
-        <h3>框架本体 · 知识图谱</h3>
-        <p>把框架本身画成一张可缩放的知识图谱：三章、六反、卦象与偈文依序展开，每个节点可点开看释义与出处。</p>
-      </span>
-      <span class="go">打开图谱 →</span>
-    </a>
-
-    <a class="app" href="invest/" target="_blank" rel="noopener">
-      <span class="idx">03</span>
-      <span class="main">
-        <h3>应用于投资</h3>
-        <p>同一套框架在投资研究中的展开：图谱化的概念关系与操作次序。属个人研究笔记与方法整理，不构成任何投资建议。</p>
-      </span>
-      <span class="go">打开图谱 →</span>
-    </a>
-
-    <p class="note">
-      「本体」与「投资」两张图谱为桌面端设计，建议用电脑打开。<br>
-      三个站点共用同一套框架，可视为一个体系的三个切面。
-    </p>
+  <section id="c3">
+    <div class="lead">
+      <div class="sec-no"><b>03</b><span>APPLICATIONS</span></div>
+      <h2>三个应用</h2>
+      <div class="apps">
+        <a class="app" href="https://0603wangxiao.github.io/geosandbox/">
+          <span class="idx">01</span>
+          <span>
+            <h3>应用于地缘</h3>
+            <p>武装冲突伤亡记录与风险推演。每个数字标注信源与口径，一律为「经核实的最低确证数」；已核实事实与推演情景严格分栏，后者一律加【推演情景】标签。</p>
+          </span>
+          <span class="go">进入沙盘 →</span>
+        </a>
+        <a class="app" href="kg/">
+          <span class="idx">02</span>
+          <span>
+            <h3>框架本体 · 知识图谱</h3>
+            <p>把框架本身画成一张可缩放的知识图谱：三章、六反、卦象与偈文依序展开，每个节点可点开看释义与出处。桌面端设计。</p>
+          </span>
+          <span class="go">打开图谱 →</span>
+        </a>
+        <a class="app" href="invest/">
+          <span class="idx">03</span>
+          <span>
+            <h3>应用于投资</h3>
+            <p>同一套框架在投资研究中的展开：图谱化的概念关系与操作次序。属个人研究笔记与方法整理，<strong>不构成任何投资建议</strong>。</p>
+          </span>
+          <span class="go">打开图谱 →</span>
+        </a>
+      </div>
+      <p class="note">
+        三个站点共用同一套框架，可视为一个体系的三个切面。<br />
+        「本体」与「投资」两张图谱为桌面端设计，建议用电脑打开。
+      </p>
+    </div>
   </section>
 
 </main>
 
-<footer class="wrap">
-  <div>© 2026 王潇 ·《三变·六反》· 自由使用，请注明来处；禁止商用</div>
-  <div class="fl">
+<footer class="foot">
+  <span>© 2026 王潇 ·《三变·六反》</span>
+  <span class="sep"></span>
+  <span>自由使用，请注明来处；禁止商用</span>
+  <span class="fl">
     <a href="https://0603wangxiao.github.io/geosandbox/">地缘沙盘</a>
     <a href="kg/">知识图谱</a>
     <a href="invest/">投资图谱</a>
-  </div>
+  </span>
 </footer>
+
+<script>
+/* ═══ 章节轨 + 入场 ═══ */
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('main section'));
+  var dots=[].slice.call(document.querySelectorAll('.rail button'));
+  if(!secs.length) return;
+
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          var i=secs.indexOf(e.target);
+          dots.forEach(function(d,k){ d.classList.toggle('on', k===i); });
+        }
+      });
+    },{threshold:.28});
+    secs.forEach(function(s){ io.observe(s); });
+  } else {
+    secs.forEach(function(s){ s.classList.add('in'); });
+  }
+
+  /* 兜底：若 IO 因任何原因未触发，1.6s 后强制点亮首屏与已滚到的分节 */
+  setTimeout(function(){
+    secs.forEach(function(s){
+      var r=s.getBoundingClientRect();
+      if(r.top<window.innerHeight*0.9 && r.bottom>0) s.classList.add('in');
+    });
+  },1600);
+
+  dots.forEach(function(d){
+    d.addEventListener('click',function(){
+      var t=secs[+d.dataset.goto];
+      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+})();
+
+/* ═══ 粒子场（Canvas 2D · 加色混合 · 轻量）═══ */
+(function(){
+  var cv=document.getElementById('gl');
+  if(!cv||!cv.getContext) return;
+  var ctx=cv.getContext('2d',{alpha:true});
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,DPR=1,ps=[],visible=true,last=0;
+
+  function calcDpr(){
+    var m=window.matchMedia;
+    var coarse=!!(m&&(m('(max-width:700px)').matches||m('(pointer:coarse)').matches));
+    return Math.min(window.devicePixelRatio||1, coarse?1:1.3);   /* 软圆点，分辨率感知低 */
+  }
+  function seed(){
+    ps=[];
+    var n=Math.round(Math.min(230,(W*H)/11000));
+    for(var i=0;i<n;i++){
+      ps.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.25+.35,
+        vx:(Math.random()-.5)*.055, vy:(Math.random()-.5)*.055,
+        a:Math.random()*.42+.1, ph:Math.random()*Math.PI*2
+      });
+    }
+  }
+  function resize(){
+    DPR=calcDpr(); W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    seed();
+  }
+  function draw(t){
+    requestAnimationFrame(draw);
+    if(!visible||document.hidden) return;
+    var dt=Math.min(48,(t-last)||16); last=t;
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    var k=reduced?0:1;
+    for(var i=0;i<ps.length;i++){
+      var p=ps[i];
+      p.x+=p.vx*dt*k; p.y+=p.vy*dt*k;
+      if(p.x<-8) p.x=W+8; else if(p.x>W+8) p.x=-8;
+      if(p.y<-8) p.y=H+8; else if(p.y>H+8) p.y=-8;
+      var tw=.6+.4*Math.sin(t*.0009+p.ph);
+      ctx.beginPath();
+      ctx.fillStyle='rgba(172,255,206,'+(p.a*tw*.9).toFixed(3)+')';
+      ctx.arc(p.x,p.y,p.r,0,6.2832);
+      ctx.fill();
+    }
+    ctx.globalCompositeOperation='source-over';
+  }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ visible=es[0].isIntersecting; },{rootMargin:'20% 0px'})
+      .observe(document.body);
+  }
+  var rt=0;
+  window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(resize,180); });
+  resize(); requestAnimationFrame(draw);
+})();
+</script>
 
 </body>
 </html>
