@@ -118,8 +118,8 @@ a{color:inherit;text-decoration:none}
 /* ── 正文 ── */
 main{position:relative;z-index:10}
 section{
-  min-height:100svh;display:flex;align-items:flex-start;
-  padding:clamp(104px,13vh,150px) var(--margin-side) clamp(112px,14vh,160px);
+  min-height:100svh;display:flex;align-items:center;
+  padding:clamp(96px,11vh,132px) var(--margin-side) clamp(96px,11vh,132px);
   max-width:var(--container);margin-inline:auto;
 }
 .lead{flex:1;min-width:0;max-width:min(680px,100%)}
@@ -229,13 +229,13 @@ h2{font-size:clamp(28px,3.2vw,48px)}
 
 /* ── 宽屏两栏：左栏编号与大标题，右栏正文与规格表（避免右侧大面积留白）── */
 @media(min-width:1080px){
-  section{align-items:flex-start;justify-content:center}
+  section{align-items:center;justify-content:center}
   /* 整块居中并限宽：留白左右分摊，而不是全堆在右侧 */
   .lead{
     flex:0 1 auto;width:100%;max-width:1480px;margin:0 auto;
     display:grid;grid-template-columns:minmax(240px,420px) minmax(0,1fr);
     column-gap:clamp(48px,5vw,120px);row-gap:clamp(18px,2.2vw,38px);
-    align-items:start;align-content:start}
+    align-items:start;align-content:center}
   /* 编号与标题同处一个单元格并紧贴 —— 否则第一行高度被右栏正文撑高，
      标题会被推到下方，出现百余像素的空档 */
   .lead-head{grid-column:1;grid-row:1;align-self:start}
