@@ -120,7 +120,7 @@ main{position:relative;z-index:10}
 section{
   min-height:100svh;display:flex;align-items:center;
   padding:clamp(104px,13vh,150px) var(--margin-side) clamp(112px,14vh,160px);
-  max-width:var(--container);
+  max-width:var(--container);margin-inline:auto;
 }
 .lead{flex:1;min-width:0;max-width:min(680px,100%)}
 .sec-no{
@@ -220,6 +220,32 @@ h2{font-size:clamp(26px,4vw,54px)}
 .foot a:hover{color:var(--color-white)}
 .foot a:hover::after{right:0}
 .sep{width:1px;height:14px;background:rgb(var(--ink-rgb)/.14);flex:none}
+
+/* 章节轨占据右侧，正文需让出这段宽度（否则规格表右对齐的数值会被轨道压住） */
+@media(min-width:980px){
+  section{padding-right:calc(var(--margin-side) + 92px)}
+}
+
+/* ── 宽屏两栏：左栏编号与大标题，右栏正文与规格表（避免右侧大面积留白）── */
+@media(min-width:1080px){
+  section{align-items:center;justify-content:center}
+  /* 整块居中并限宽：留白左右分摊，而不是全堆在右侧 */
+  .lead{
+    flex:0 1 auto;width:100%;max-width:1480px;margin:0 auto;
+    display:grid;grid-template-columns:minmax(220px,330px) minmax(0,1fr);
+    column-gap:clamp(48px,5vw,120px);row-gap:clamp(18px,2.2vw,38px);
+    align-items:start;align-content:center}
+  .sec-no{grid-column:1;grid-row:1;margin-bottom:0}
+  h1,h2{grid-column:1;grid-row:2}
+  .sec-body{grid-column:2;grid-row:1;margin-top:0;max-width:52ch}
+  .spec,.verse,.apps{grid-column:2;grid-row:2;margin-top:0;max-width:min(880px,100%)}
+  .note{grid-column:2;grid-row:3;margin-top:clamp(16px,2vw,30px)}
+  .app p{max-width:56ch}
+}
+@media(min-width:1700px){
+  .lead{max-width:1620px}
+  .spec,.verse,.apps{max-width:min(1020px,100%)}
+}
 
 @media(max-width:719px){
   .foot{flex-direction:column;align-items:flex-start;gap:8px;
