@@ -130,9 +130,9 @@ section{
 .sec-no span{font-family:var(--font-mono);font-size:10px;letter-spacing:.26em;color:rgb(var(--ink-rgb)/.4)}
 h1,h2{
   font-family:var(--font-mono);font-weight:400;margin:0;
-  font-size:clamp(32px,5.2vw,74px);line-height:1.12;letter-spacing:-.01em;
+  font-size:clamp(30px,3.4vw,52px);line-height:1.14;letter-spacing:-.01em;white-space:nowrap;
   transition:opacity .9s var(--ease-cubic) .06s,transform .9s var(--ease-cubic) .06s}
-h2{font-size:clamp(26px,4vw,54px)}
+h2{font-size:clamp(26px,3vw,46px)}
 .sec-body{
   margin:var(--space-md) 0 0;max-width:46ch;
   font-size:clamp(14.5px,1.05vw,17px);line-height:1.85;
@@ -164,8 +164,8 @@ h2{font-size:clamp(26px,4vw,54px)}
   margin:var(--space-md) 0 0;max-width:min(560px,100%);
   border-top:1px solid rgb(var(--ink-rgb)/.1);border-bottom:1px solid rgb(var(--ink-rgb)/.1);
   padding:clamp(26px,3.4vw,40px) 0;
-  font-family:var(--font-mono);font-size:clamp(13px,1.05vw,15px);
-  line-height:2.2;letter-spacing:.1em;color:rgb(var(--ink-rgb)/.86);
+  font-family:var(--font-mono);font-size:clamp(15.5px,1.26vw,18px);
+  line-height:2.1;letter-spacing:.09em;color:rgb(var(--ink-rgb)/.86);
   transition:opacity .9s var(--ease-cubic) .32s,transform .9s var(--ease-cubic) .32s}
 .verse span{display:block}
 .verse span:last-child{margin-top:.5em;color:var(--accent)}
@@ -232,7 +232,7 @@ h2{font-size:clamp(26px,4vw,54px)}
   /* 整块居中并限宽：留白左右分摊，而不是全堆在右侧 */
   .lead{
     flex:0 1 auto;width:100%;max-width:1480px;margin:0 auto;
-    display:grid;grid-template-columns:minmax(220px,330px) minmax(0,1fr);
+    display:grid;grid-template-columns:minmax(240px,420px) minmax(0,1fr);
     column-gap:clamp(48px,5vw,120px);row-gap:clamp(18px,2.2vw,38px);
     align-items:start;align-content:center}
   .sec-no{grid-column:1;grid-row:1;margin-bottom:0}
