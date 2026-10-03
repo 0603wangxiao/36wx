@@ -62,8 +62,12 @@ a{color:inherit;text-decoration:none}
 .top{
   position:fixed;top:0;left:0;right:0;z-index:20;
   display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:clamp(14px,2vh,22px) var(--margin-side);
+  padding:calc(clamp(14px,2vh,22px) + env(safe-area-inset-top,0px)) var(--margin-side) clamp(14px,2vh,22px);
+  /* 渐隐底衬：固定顶栏下方压暗，避免滚动时正文透出造成错位 */
+  background:linear-gradient(180deg,rgba(25,26,30,.96) 0%,rgba(25,26,30,.82) 58%,rgba(25,26,30,0) 100%);
+  pointer-events:none;
 }
+.top a,.top nav{pointer-events:auto}
 .brand{display:flex;align-items:center;gap:11px;min-width:0}
 .mark{width:clamp(28px,3vw,38px);height:clamp(28px,3vw,38px);flex:none;overflow:visible}
 .mark circle,.mark path{stroke:var(--accent);fill:none;stroke-width:1.4;vector-effect:non-scaling-stroke}
@@ -216,6 +220,14 @@ h2{font-size:clamp(26px,4vw,54px)}
 .foot a:hover{color:var(--color-white)}
 .foot a:hover::after{right:0}
 .sep{width:1px;height:14px;background:rgb(var(--ink-rgb)/.14);flex:none}
+
+@media(max-width:719px){
+  .foot{flex-direction:column;align-items:flex-start;gap:8px;
+    padding:20px var(--margin-side) calc(30px + env(safe-area-inset-bottom,0px))}
+  .foot .sep{display:none}
+  .foot .fl{margin-left:0;width:100%;gap:1.2em;
+    padding-top:12px;border-top:1px solid rgb(var(--ink-rgb)/.07)}
+}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
