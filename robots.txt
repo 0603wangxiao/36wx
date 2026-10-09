@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://0603wangxiao.github.io/36wx/sitemap.xml
